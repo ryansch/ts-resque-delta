@@ -60,7 +60,7 @@ class ThinkingSphinx::Deltas::ResqueDelta::CoreIndex
       with_delta_index_lock(index_name) do
         ThinkingSphinx::Deltas::ResqueDelta.prepare_for_core_index(index_name)
         ts_config.controller.index("#{index_name}_core", :verbose => verbose)
-        ret = $?
+        ret = last_command_status
       end
 
       return false if ret.to_i != 0
@@ -97,5 +97,9 @@ class ThinkingSphinx::Deltas::ResqueDelta::CoreIndex
 
   def index_prefixes
     ThinkingSphinx::Deltas::ResqueDelta::IndexUtils.index_prefixes
+  end
+
+  def last_command_status
+    $?
   end
 end

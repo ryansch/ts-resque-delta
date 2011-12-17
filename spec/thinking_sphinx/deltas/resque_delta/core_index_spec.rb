@@ -93,10 +93,8 @@ describe ThinkingSphinx::Deltas::ResqueDelta::CoreIndex do
       config.stub(:config_file => 'foo_config')
       config.stub(:build)
       config.stub(:searchd_file_path => test_path)
-      config.stub_chain(:controller, :index) do
-        # Set $? to 0
-        `/usr/bin/true`
-      end
+      config.stub_chain(:controller, :index)
+      subject.stub(:last_command_status => 0)
 
       # Silence Generating config message
       subject.stub(:puts)
@@ -186,10 +184,7 @@ describe ThinkingSphinx::Deltas::ResqueDelta::CoreIndex do
 
     context 'with an error' do
       before :each do
-        config.stub_chain(:controller, :index) do
-          # Set $? to 1
-          `/usr/bin/false`
-        end
+        subject.stub(:last_command_status => 1)
       end
 
       it 'should stop processing indexes after an error' do
