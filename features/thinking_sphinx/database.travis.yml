@@ -1,0 +1,3 @@
+adapter: mysql2
+database: myapp_test
+username: 

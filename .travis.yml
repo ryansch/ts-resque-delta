@@ -1,8 +1,10 @@
 rvm:
+  - ree
   - 1.8.7
   - 1.9.2
   - 1.9.3
-  - ree
+before_script:
+  - "mysql -e 'create database myapp_test;'" 
 branches:
   only:
     - travis-test
